@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Abyx.McpClient/Abyx.McpClient.csproj" />
+  <Project Path="Abyx.McpServer/Abyx.McpServer.csproj" />
+</Solution>
