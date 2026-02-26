@@ -14,11 +14,11 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .Build();
 
-using var sharedHandler = new SocketsHttpHandler
-{
-    PooledConnectionLifetime = TimeSpan.FromMinutes(2),
-    PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1)
-};
+// using var sharedHandler = new SocketsHttpHandler
+// {
+//     PooledConnectionLifetime = TimeSpan.FromMinutes(2),
+//     PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1)
+// };
 
 var consoleLoggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 
