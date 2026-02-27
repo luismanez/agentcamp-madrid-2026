@@ -19,5 +19,6 @@
     <PackageVersion Include="Microsoft.Identity.Web.GraphServiceClient" Version="4.3.0" />
     <PackageVersion Include="ModelContextProtocol" Version="0.8.0-preview.1" />
     <PackageVersion Include="ModelContextProtocol.AspNetCore" Version="0.8.0-preview.1" />
+    <PackageVersion Include="Spectre.Console" Version="0.54.1-alpha.0.59" />
   </ItemGroup>
 </Project>

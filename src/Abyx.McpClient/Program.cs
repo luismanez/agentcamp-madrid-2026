@@ -14,12 +14,6 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .Build();
 
-// using var sharedHandler = new SocketsHttpHandler
-// {
-//     PooledConnectionLifetime = TimeSpan.FromMinutes(2),
-//     PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1)
-// };
-
 var consoleLoggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 
 string[] scopes = configuration["AzureAd:Scopes"]?.Split(' ', StringSplitOptions.RemoveEmptyEntries)
@@ -36,7 +30,17 @@ var credential = new InteractiveBrowserCredential(new InteractiveBrowserCredenti
     ClientId = clientId,
     RedirectUri = new Uri("http://localhost")
 });
-var httpClient = new HttpClient(new TokenCredentialHandler(credential, scopes));
+
+var wiretapHandler = new WiretapHandler
+{
+    InnerHandler = new SocketsHttpHandler
+    {
+        PooledConnectionLifetime = TimeSpan.FromMinutes(2),
+        PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1)
+    }
+};
+
+var httpClient = new HttpClient(new TokenCredentialHandler(credential, scopes, wiretapHandler));
 
 var mcpServerUrl = "https://localhost:7234/mcp";
 var transport = new HttpClientTransport(new()

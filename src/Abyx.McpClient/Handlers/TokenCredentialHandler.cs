@@ -22,16 +22,12 @@ sealed class TokenCredentialHandler : DelegatingHandler
     }
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken ct)
-    {
-        Console.WriteLine($"Request: {request.Method} {request.RequestUri}");
-        
+    {       
         var token = await _credential.GetTokenAsync(new TokenRequestContext(_scopes), ct).ConfigureAwait(false);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
         
         var response = await base.SendAsync(request, ct).ConfigureAwait(false);
-        
-        Console.WriteLine($"Response: {response.StatusCode}");
-        
+                
         return response;
     }
 }
